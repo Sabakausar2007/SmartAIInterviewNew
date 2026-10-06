@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resume Analyzer — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .dropzone { border:2px dashed var(--border-strong); border-radius: var(--radius-xl); padding:44px 24px; text-align:center; cursor:pointer; transition: all 0.15s ease; }
+  .dropzone:hover, .dropzone.dragover { border-color: var(--blue); background: rgba(59,130,246,0.06); }
+  .dropzone i { font-size:2.2rem; color: var(--blue); margin-bottom:12px; }
+  .score-ring-sm { width:130px;height:130px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 14px; background: conic-gradient(var(--green) calc(var(--pct) * 1%), rgba(255,255,255,0.08) 0); }
+  .score-ring-sm .inner { width:106px;height:106px;border-radius:50%;background:var(--bg-soft);display:flex;flex-direction:column;align-items:center;justify-content:center; }
+  .score-ring-sm .inner strong { font-family: var(--font-head); font-size:1.8rem; }
+  .info-block { margin-bottom:12px; } .info-block .lbl { font-size:0.72rem; font-weight:700; color:var(--text-faint); text-transform:uppercase; margin-bottom:4px; }
+  .resume-item { margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="resume-template">
+  <div class="grid-2" style="grid-template-columns: 0.85fr 1.15fr; align-items:start;">
+    <div class="card">
+      <div class="flex-center" id="resume-robot-slot" style="margin-bottom:10px;"></div>
+      <h3 class="mb-8" style="text-align:center;">Upload Resume</h3>
+      <p class="text-muted mb-16">PDF or DOCX, up to 5MB.</p>
+      <div class="dropzone" id="dropzone">
+        <i class="fa-solid fa-file-arrow-up"></i>
+        <p style="margin:0;font-weight:600;color:#fff;">Drop your resume here</p>
+        <p class="text-muted" style="margin:4px 0 0;font-size:0.85rem;">or click to browse</p>
+        <input type="file" id="resume-input" accept=".pdf,.docx" style="display:none;" />
+      </div>
+      <div id="upload-progress" class="hidden mt-16"><div class="loading-block" style="padding:10px 0;"><span class="spinner"></span> Analyzing resume…</div></div>
+    </div>
+    <div>
+      <h3 class="mb-16">Your Resume Analyses</h3>
+      <div id="resume-list-wrap"><div class="loading-block"><span class="spinner"></span> Loading…</div></div>
+    </div>
+  </div>
+</template>
+
+<template id="resume-item-template">
+  <div class="card resume-item">
+    <div class="flex-between mb-16">
+      <div><i class="fa-solid fa-file-lines"></i> <strong class="r-filename"></strong></div>
+      <button class="btn btn-ghost btn-sm r-delete"><i class="fa-solid fa-trash"></i></button>
+    </div>
+    <div class="grid-2" style="grid-template-columns: 1fr 1.6fr;">
+      <div class="text-center">
+        <div class="score-ring-sm" style="--pct:0;"><div class="inner"><strong class="r-score">0</strong><span class="text-muted" style="font-size:0.7rem;">STRENGTH</span></div></div>
+        <div class="r-demo-badge"></div>
+      </div>
+      <div>
+        <div class="info-block"><div class="lbl">Skills</div><div class="r-skills"></div></div>
+        <div class="info-block"><div class="lbl">Education</div><div class="r-education"></div></div>
+        <div class="info-block"><div class="lbl">Projects</div><div class="r-projects"></div></div>
+        <div class="info-block"><div class="lbl">Experience</div><div class="r-experience"></div></div>
+        <div class="info-block"><div class="lbl">Certifications</div><div class="r-certifications"></div></div>
+      </div>
+    </div>
+    <div class="grid-2 mt-16">
+      <div><h4 style="font-size:0.9rem;">✅ What you're doing well</h4><ul class="r-doing-well" style="font-size:0.85rem;"></ul></div>
+      <div><h4 style="font-size:0.9rem;">📈 What you should improve</h4><ul class="r-improve" style="font-size:0.85rem;"></ul></div>
+    </div>
+  </div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/resume.js"></script>
+</body>
+</html>

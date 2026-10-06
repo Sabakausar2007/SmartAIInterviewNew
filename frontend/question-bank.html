@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Question Bank — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .qb-toolbar { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px; }
+  .qb-toolbar input, .qb-toolbar select { max-width:220px; }
+  .qb-item { padding: 16px 20px; margin-bottom:10px; }
+  .qb-bookmark-btn { background:none; border:none; cursor:pointer; font-size:1.1rem; color: var(--text-faint); margin-left:auto; }
+  .qb-bookmark-btn.active { color: #FBBF24; }
+  .qb-toggle-chip { display:flex; align-items:center; gap:8px; padding: 10px 16px; border:1.5px solid var(--border-strong); border-radius: var(--radius-sm); cursor:pointer; font-size:0.88rem; color: var(--text-muted); user-select:none; }
+  .qb-toggle-chip.active { border-color: #FBBF24; color: #FBBF24; background: rgba(245,158,11,0.08); }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="qbank-template">
+  <div class="qb-toolbar">
+    <input type="search" id="qb-search" placeholder="Search questions…" />
+    <select id="qb-category-filter"><option value="">All Categories</option></select>
+    <select id="qb-difficulty-filter"><option value="">All Difficulties</option><option>Easy</option><option>Medium</option><option>Hard</option></select>
+    <div class="qb-toggle-chip" id="qb-bookmark-toggle"><i class="fa-regular fa-star"></i> Bookmarked Only</div>
+  </div>
+  <div id="qb-results"><div class="loading-block"><span class="spinner"></span> Loading question bank…</div></div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/question-bank.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coding Practice — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .cp-list-item { padding: 16px 18px; margin-bottom:10px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
+  #code-editor { width:100%; min-height: 260px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.9rem; background: #05070E; color: #E2E8F0; border: 1.5px solid var(--border-strong); border-radius: var(--radius-sm); padding: 16px; resize: vertical; line-height:1.6; }
+  .tc-row { display:flex; justify-content:space-between; padding: 10px 14px; border-radius:8px; margin-bottom:6px; font-size:0.85rem; font-family: monospace; }
+  .tc-row.pass { background: rgba(34,197,94,0.12); color:#4ADE80; }
+  .tc-row.fail { background: rgba(239,68,68,0.12); color:#F87171; }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="coding-list-template">
+  <div id="cp-list-wrap"><div class="loading-block"><span class="spinner"></span> Loading problems…</div></div>
+</template>
+
+<template id="coding-detail-template">
+  <a href="coding-practice.html" class="btn btn-ghost btn-sm mb-16"><i class="fa-solid fa-arrow-left"></i> All Problems</a>
+  <div class="grid-2" style="grid-template-columns: 1fr 1fr; align-items:start;">
+    <div class="card">
+      <div class="flex gap-12 mb-16" style="align-items:center;"><div id="mentor-robot-slot"></div><div><strong style="font-size:0.85rem;">Coding Mentor AI</strong><p class="text-muted" style="margin:0;font-size:0.78rem;">Read the problem, write your solution, then Run or Submit.</p></div></div>
+      <div class="flex-between mb-8"><h3 id="cp-title" style="margin:0;"></h3><span class="badge badge-blue" id="cp-difficulty"></span></div>
+      <p id="cp-statement" style="white-space:pre-wrap;"></p>
+    </div>
+    <div class="card">
+      <div class="demo-banner mb-16"><i class="fa-solid fa-flask"></i> Demo Code Execution: your code runs in a restricted local subprocess for practice only — this is not a secure, production-grade sandbox.</div>
+      <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:10px;">Code Editor</label>
+      <textarea id="code-editor" spellcheck="false"></textarea>
+      <div class="flex gap-10 mt-16"><button class="btn btn-secondary" id="run-btn"><i class="fa-solid fa-play"></i> Run Code</button><button class="btn btn-primary" id="submit-code-btn"><i class="fa-solid fa-paper-plane"></i> Submit</button></div>
+      <div id="cp-results" class="mt-16"></div>
+    </div>
+  </div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/coding-practice.js"></script>
+</body>
+</html>

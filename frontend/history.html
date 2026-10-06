@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>History — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="history-template">
+  <div class="tabs"><button class="tab-btn active" data-tab="interviews">Interview History</button><button class="tab-btn" data-tab="quizzes">Quiz History</button></div>
+  <div id="tab-interviews"><div class="card card-flush"><div id="history-interviews-wrap"><div class="loading-block"><span class="spinner"></span> Loading…</div></div></div></div>
+  <div id="tab-quizzes" class="hidden"><div class="card card-flush"><div id="history-quizzes-wrap"><div class="loading-block"><span class="spinner"></span> Loading…</div></div></div></div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/history.js"></script>
+</body>
+</html>

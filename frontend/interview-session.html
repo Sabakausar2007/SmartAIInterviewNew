@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interview Session — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .session-stage { max-width: 780px; margin: 0 auto; }
+  .question-card { padding: 30px; margin-bottom: 20px; }
+  .question-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; font-size:0.82rem; color:var(--text-muted); font-weight:600; }
+  .question-text { font-family: var(--font-head); font-size:1.3rem; font-weight:600; }
+  .answer-actions { display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:10px; }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="session-template">
+  <div class="session-stage">
+    <div class="flex-between mb-8">
+      <span class="text-muted" style="font-size:0.85rem;font-weight:600;" id="question-counter">Question 1 / 5</span>
+      <span class="timer-pill" id="session-timer"><i class="fa-regular fa-clock"></i> 00:00</span>
+    </div>
+    <div class="progress-track mb-24"><div class="progress-fill" id="session-progress" style="width:0%;"></div></div>
+
+    <div class="card question-card"><div class="question-text" id="question-text">Loading question…</div></div>
+
+    <div class="card">
+      <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:10px;">Your Answer</label>
+      <textarea id="answer-box" placeholder="Type your answer here…" rows="7"></textarea>
+      <div class="answer-actions">
+        <button class="btn btn-ghost" id="skip-btn">Skip</button>
+        <div class="flex gap-8">
+          <button class="btn btn-secondary" id="end-btn">End Interview</button>
+          <button class="btn btn-primary" id="submit-btn">Submit Answer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/interview-session.js"></script>
+</body>
+</html>

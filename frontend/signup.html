@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign Up — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .auth-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 20px; }
+  .auth-card { width: 100%; max-width: 440px; }
+  .auth-card .brand { justify-content: center; margin-bottom: 26px; }
+  .auth-panel { padding: 36px; }
+  .auth-panel h2 { text-align: center; } .auth-panel p.sub { text-align: center; margin-bottom: 26px; }
+  .auth-switch { text-align: center; margin-top: 18px; font-size: 0.9rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="auth-wrap">
+  <div class="auth-card fade-in-up">
+    <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-brain"></i></span>Smart AI Interview</a>
+    <div class="card auth-panel">
+      <h2>Create your account</h2>
+      <p class="sub text-muted">Start practicing for free — takes less than a minute.</p>
+      <form id="signup-form" novalidate>
+        <div class="field"><label for="full_name">Full Name</label><input type="text" id="full_name" placeholder="Jordan Lee" required /><div class="field-error">Enter your full name.</div></div>
+        <div class="field"><label for="email">Email</label><input type="email" id="email" placeholder="you@example.com" required /><div class="field-error">Enter a valid email address.</div></div>
+        <div class="field"><label for="password">Password</label><input type="password" id="password" placeholder="At least 6 characters" required minlength="6" /><div class="field-error">Password must be at least 6 characters.</div></div>
+        <div class="field"><label for="confirm_password">Confirm Password</label><input type="password" id="confirm_password" placeholder="Re-enter password" required /><div class="field-error">Passwords do not match.</div></div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="signup-submit"><span id="signup-submit-label">Create Account</span></button>
+      </form>
+      <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </div>
+</div>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/auth.js"></script>
+</body>
+</html>

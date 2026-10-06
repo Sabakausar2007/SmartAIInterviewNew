@@ -1,0 +1,9 @@
+.env
+*.db
+venv/
+__pycache__/
+*.pyc
+uploads/resumes/*
+!uploads/resumes/.gitkeep
+.DS_Store
+Thumbs.db

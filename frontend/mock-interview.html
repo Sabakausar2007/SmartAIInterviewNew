@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mock Interview — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .mode-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 26px; }
+  .mode-card { cursor: pointer; text-align: center; padding: 34px 20px; }
+  .mode-card .icon-badge { width: 60px; height: 60px; border-radius: 16px; background: var(--grad-main); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #fff; margin: 0 auto 16px; }
+  .mode-card.selected { border-color: var(--blue); box-shadow: var(--glow-blue); }
+  @media (max-width: 700px) { .mode-cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="mock-interview-template">
+  <div style="max-width:720px;">
+    <div class="card mb-24" style="display:flex;align-items:center;gap:16px;">
+      <div id="interviewer-robot-slot"></div>
+      <div><h4 style="margin-bottom:2px;">AI Interviewer</h4><p class="text-muted" style="margin:0;font-size:0.85rem;">Let's set up your mock interview — choose an option below to begin.</p></div>
+    </div>
+    <div class="mode-cards">
+      <div class="card card-hover mode-card selected" data-mode="job_interview">
+        <div class="icon-badge"><i class="fa-solid fa-briefcase"></i></div>
+        <h3>Job Interview</h3><p style="margin:0;">Choose a role, experience level and interview type.</p>
+      </div>
+      <div class="card card-hover mode-card" data-mode="resume_based">
+        <div class="icon-badge"><i class="fa-solid fa-file-lines"></i></div>
+        <h3>Resume-Based Interview</h3><p style="margin:0;">Questions generated from one of your uploaded resumes.</p>
+      </div>
+    </div>
+
+    <div class="card" id="job-fields">
+      <div class="field">
+        <label>Job Role</label>
+        <select id="job-role-select">
+          <option>Software Developer</option><option>Data Analyst</option><option>Software Tester</option>
+          <option>Web Developer</option><option>Python Developer</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Experience Level</label>
+        <div class="radio-cards" id="experience-options">
+          <div class="radio-card selected" data-value="Fresher">Fresher</div>
+          <div class="radio-card" data-value="1-2 years">1-2 years</div>
+          <div class="radio-card" data-value="3+ years">3+ years</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Interview Type</label>
+        <div class="radio-cards" id="type-options">
+          <div class="radio-card selected" data-value="Technical">Technical</div>
+          <div class="radio-card" data-value="HR">HR</div>
+          <div class="radio-card" data-value="Behavioral">Behavioral</div>
+          <div class="radio-card" data-value="Coding">Coding</div>
+        </div>
+      </div>
+
+      <div class="field hidden" id="resume-field">
+        <label>Which resume should questions be based on?</label>
+        <select id="resume-select"></select>
+        <div class="hint">No resumes yet? <a href="resume.html">Upload one first</a>.</div>
+      </div>
+
+      <div class="field">
+        <label>Number of Questions</label>
+        <div class="radio-cards" id="count-options">
+          <div class="radio-card selected" data-value="5">5</div>
+          <div class="radio-card" data-value="10">10</div>
+          <div class="radio-card" data-value="15">15</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-lg btn-block mt-16" id="start-interview-btn">Start Now</button>
+    </div>
+  </div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/mock-interview.js"></script>
+</body>
+</html>

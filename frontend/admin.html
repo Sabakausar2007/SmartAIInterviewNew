@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>.admin-toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; } .pagination { display:flex; justify-content:flex-end; align-items:center; gap:10px; padding:14px 18px; font-size:0.85rem; color:var(--text-muted); }</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="admin-template">
+  <div class="stat-grid mb-24">
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-users"></i></div><div class="stat-label">Total Users</div><div class="stat-value" id="admin-users-count">—</div></div>
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-comments"></i></div><div class="stat-label">Total Interviews</div><div class="stat-value" id="admin-interviews-count">—</div></div>
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div><div class="stat-label">Total Questions</div><div class="stat-value" id="admin-questions-count">—</div></div>
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div><div class="stat-label">Avg Performance</div><div class="stat-value" id="admin-avg-performance">—</div></div>
+  </div>
+
+  <div class="tabs"><button class="tab-btn active" data-tab="users">Users</button><button class="tab-btn" data-tab="interviews">Interviews</button><button class="tab-btn" data-tab="mcq">MCQ Questions</button></div>
+
+  <div id="tab-users" class="admin-tab">
+    <div class="admin-toolbar"><input type="search" id="user-search" placeholder="Search by name or email…" style="max-width:280px;" /></div>
+    <div class="card card-flush"><div id="users-table-wrap"><div class="loading-block"><span class="spinner"></span> Loading…</div></div><div class="pagination" id="users-pagination"></div></div>
+  </div>
+  <div id="tab-interviews" class="admin-tab hidden">
+    <div class="card card-flush"><div id="interviews-table-wrap"><div class="loading-block"><span class="spinner"></span> Loading…</div></div><div class="pagination" id="interviews-pagination"></div></div>
+  </div>
+  <div id="tab-mcq" class="admin-tab hidden">
+    <div class="admin-toolbar">
+      <select id="mcq-category-filter" style="max-width:220px;"><option value="">All categories</option></select>
+      <button class="btn btn-primary btn-sm" id="mcq-add-btn"><i class="fa-solid fa-plus"></i> Add Question</button>
+    </div>
+    <div class="card card-flush"><div id="mcq-table-wrap"><div class="loading-block"><span class="spinner"></span> Loading…</div></div><div class="pagination" id="mcq-pagination"></div></div>
+  </div>
+</template>
+
+<template id="mcq-form-template">
+  <div class="modal-backdrop" id="mcq-modal-backdrop">
+    <div class="modal" style="max-width:560px;">
+      <h3 id="mcq-form-title">Add Question</h3>
+      <form id="mcq-form">
+        <input type="hidden" id="mcq-form-id" />
+        <div class="input-row">
+          <div class="field"><label>Category</label>
+            <select id="mcq-form-category">
+              <option>Python</option><option>Java</option><option>C++</option><option>JavaScript</option>
+              <option>SQL</option><option>DBMS</option><option>Data Structures</option><option>Web Development</option>
+              <option>Cybersecurity</option><option>Software Engineering</option><option>System Design</option>
+            </select>
+          </div>
+          <div class="field"><label>Difficulty</label><select id="mcq-form-difficulty"><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
+        </div>
+        <div class="field"><label>Question</label><textarea id="mcq-form-question" rows="2" required></textarea></div>
+        <div class="input-row">
+          <div class="field"><label>Option A</label><input type="text" id="mcq-form-a" required /></div>
+          <div class="field"><label>Option B</label><input type="text" id="mcq-form-b" required /></div>
+        </div>
+        <div class="input-row">
+          <div class="field"><label>Option C</label><input type="text" id="mcq-form-c" required /></div>
+          <div class="field"><label>Option D</label><input type="text" id="mcq-form-d" required /></div>
+        </div>
+        <div class="field"><label>Correct Answer</label>
+          <select id="mcq-form-correct"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>
+        </div>
+        <div class="field"><label>Explanation</label><textarea id="mcq-form-explanation" rows="2"></textarea></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="mcq-form-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="mcq-form-submit">Save Question</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

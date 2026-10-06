@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart AI Interview Assistance — Your Personal AI Guide to Interview Success</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .hero { padding: 70px 0 90px; overflow: hidden; }
+  .hero-inner { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 50px; align-items: center; }
+  .eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--glass); border: 1px solid var(--border-strong); color: var(--cyan); padding: 8px 16px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; margin-bottom: 22px; }
+  .hero h1 { font-size: 3.1rem; line-height: 1.15; }
+  .hero p.lead { font-size: 1.1rem; max-width: 46ch; }
+  .hero-flow { font-weight: 600; color: var(--text-muted); margin-bottom: 26px; }
+  .hero-flow span { color: var(--cyan); }
+  .hero-actions { display: flex; gap: 14px; margin-top: 8px; flex-wrap: wrap; }
+  .robot-panel { position: relative; border-radius: var(--radius-xl); padding: 40px; background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); text-align: center; }
+  .robot-orb { width: 220px; height: 220px; margin: 0 auto 20px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(59,130,246,0.55), rgba(168,85,247,0.35) 60%, transparent 75%); display: flex; align-items: center; justify-content: center; box-shadow: var(--glow-purple); }
+  .robot-orb i { font-size: 5.5rem; background: var(--grad-main); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .robot-panel .quote { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 18px; font-size: 0.9rem; color: var(--text-muted); display: inline-block; }
+
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+  .feature-card .icon-badge { width: 48px; height: 48px; border-radius: 13px; background: var(--grad-main); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; color: #fff; margin-bottom: 16px; box-shadow: var(--glow-blue); }
+  .feature-card:nth-child(3n+2) .icon-badge { background: var(--grad-cyan); box-shadow: var(--glow-cyan); }
+  .feature-card:nth-child(3n) .icon-badge { background: linear-gradient(135deg, var(--purple), var(--pink)); box-shadow: var(--glow-purple); }
+
+  .stack-strip { padding: 26px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .stack-strip .container { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; color: var(--text-faint); font-size: 0.85rem; font-weight: 600; }
+
+  .cta-band { background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); padding: 56px 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; backdrop-filter: blur(16px); }
+  footer { border-top: 1px solid var(--border); padding: 32px 0; }
+  footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+
+  @media (max-width: 980px) { .hero-inner { grid-template-columns: 1fr; } .hero h1 { font-size: 2.3rem; } .feature-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .feature-grid { grid-template-columns: 1fr; } .cta-band { padding: 36px 26px; flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+
+<nav class="public-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-brain"></i></span>Smart AI Interview</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="practice.html">Practice</a></li>
+      <li><a href="mock-interview.html">Mock Interview</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-ghost btn-sm">Login</a>
+      <a href="signup.html" class="btn btn-primary btn-sm">Sign Up</a>
+    </div>
+    <button class="nav-toggle"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="fade-in-up">
+      <span class="eyebrow-pill"><i class="fa-solid fa-sparkles"></i> AI-Powered Interview Preparation</span>
+      <h1>SMART AI<br><span class="gradient-text">INTERVIEW ASSISTANCE</span></h1>
+      <p class="lead">Your Personal AI Guide to Interview Success</p>
+      <p class="hero-flow">Practice <span>•</span> Improve <span>•</span> Perform Better</p>
+      <div class="hero-actions">
+        <a href="signup.html" class="btn btn-primary btn-lg">Start Preparing</a>
+        <a href="index.html#features" class="btn btn-secondary btn-lg">Explore Features</a>
+      </div>
+    </div>
+    <div class="robot-panel fade-in-up" style="animation-delay:0.1s;">
+      <div class="robot-orb" id="hero-robot-slot"><i class="fa-solid fa-robot"></i></div>
+      <div class="quote">"Let's build your success together!"</div>
+    </div>
+  </div>
+</section>
+
+<section class="stack-strip">
+  <div class="container">
+    <span><i class="fa-brands fa-html5"></i> HTML5</span>
+    <span><i class="fa-brands fa-css3-alt"></i> CSS3</span>
+    <span><i class="fa-brands fa-js"></i> JavaScript</span>
+    <span><i class="fa-brands fa-python"></i> Python</span>
+    <span>FastAPI</span>
+    <span>SQLite</span>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <h2>Everything you need to walk in prepared</h2>
+    <p>One platform for AI mock interviews, MCQ practice, coding problems, resume analysis and the analytics that show you where to focus.</p>
+    <div class="feature-grid">
+      <div class="card card-hover feature-card"><div class="icon-badge"><i class="fa-solid fa-comments"></i></div><h3>AI Mock Interview</h3><p>Resume-based or job-role interviews with instant AI feedback, or demo scoring when no AI key is set.</p></div>
+      <div class="card card-hover feature-card"><div class="icon-badge"><i class="fa-solid fa-file-lines"></i></div><h3>Resume Analyzer</h3><p>Upload a PDF or DOCX resume and get a strength score plus concrete improvement tips.</p></div>
+      <div class="card card-hover feature-card"><div class="icon-badge"><i class="fa-solid fa-list-check"></i></div><h3>Practice Interview</h3><p>120+ MCQs across 11 categories with instant scoring and explanations.</p></div>
+      <div class="card card-hover feature-card"><div class="icon-badge"><i class="fa-solid fa-layer-group"></i></div><h3>Question Bank</h3><p>Search and filter every question by category and difficulty.</p></div>
+      <div class="card card-hover feature-card"><div class="icon-badge"><i class="fa-solid fa-code"></i></div><h3>Coding Practice</h3><p>Solve beginner-friendly coding problems and run your code against real test cases.</p></div>
+      <div class="card card-hover feature-card"><div class="icon-badge"><i class="fa-solid fa-chart-line"></i></div><h3>Progress Tracking</h3><p>Track your interview scores, quiz accuracy and coding progress over time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band">
+      <div><h2 style="margin-bottom:6px;">Ready to practice your next interview?</h2><p style="margin:0;">Create a free account and start in under two minutes.</p></div>
+      <a href="signup.html" class="btn btn-primary btn-lg">Get Started Free</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand-mark"><i class="fa-solid fa-brain"></i></span>Smart AI Interview</a>
+    <p class="text-muted" style="margin:0;">&copy; 2026 Smart AI Interview Assistance. A BSc IT final year project.</p>
+  </div>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script>
+  document.getElementById("hero-robot-slot").innerHTML = robotAvatarSVG(150, "#3B82F6");
+</script>
+</body>
+</html>

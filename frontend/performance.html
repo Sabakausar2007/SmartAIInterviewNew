@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Result & Performance — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>.topic-pill { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-radius: var(--radius-md); background: rgba(255,255,255,0.03); margin-bottom:8px; font-size:0.88rem; }</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="performance-template">
+  <div class="stat-grid mb-24">
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-comments"></i></div><div class="stat-label">Total Interviews</div><div class="stat-value" id="perf-interviews">—</div></div>
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-star"></i></div><div class="stat-label">Avg Interview Score</div><div class="stat-value" id="perf-avg-interview">—</div></div>
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-list-check"></i></div><div class="stat-label">Avg Quiz Score</div><div class="stat-value" id="perf-avg-quiz">—</div></div>
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-code"></i></div><div class="stat-label">Coding Solved</div><div class="stat-value" id="perf-coding">—</div></div>
+  </div>
+
+  <div class="grid-2 mb-24" style="grid-template-columns: 1.4fr 1fr;">
+    <div class="card">
+      <h3 class="mb-16">Score Trends</h3>
+      <div id="trend-empty" class="empty-state hidden" style="padding:30px 0;"><i class="fa-solid fa-chart-line"></i><p>Complete an interview or quiz to see trends.</p></div>
+      <canvas id="trend-chart" height="100"></canvas>
+    </div>
+    <div class="card">
+      <h3 class="mb-16">Technical / Communication / Problem Solving</h3>
+      <div id="dim-empty" class="empty-state hidden" style="padding:30px 0;"><i class="fa-solid fa-chart-simple"></i><p>No interview data yet.</p></div>
+      <canvas id="dim-chart" height="180"></canvas>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card"><h3 class="mb-16"><i class="fa-solid fa-arrow-trend-up" style="color:#4ADE80;"></i> Strongest Topics</h3><div id="strongest-wrap"></div></div>
+    <div class="card"><h3 class="mb-16"><i class="fa-solid fa-arrow-trend-down" style="color:#FBBF24;"></i> Weakest Topics</h3><div id="weakest-wrap"></div></div>
+  </div>
+</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.3/chart.umd.min.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/performance.js"></script>
+</body>
+</html>

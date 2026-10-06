@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Practice Interview — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .category-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:16px; margin-top: 18px; }
+  .category-card { cursor:pointer; padding: 20px; }
+  .category-card .cat-icon { width:42px;height:42px;border-radius:11px;background:var(--grad-main);color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:12px; }
+  .quiz-stage { max-width: 760px; margin:0 auto; }
+  .option-btn { display:block; width:100%; text-align:left; padding:14px 18px; border:1.5px solid var(--border-strong); border-radius: var(--radius-md); background: rgba(255,255,255,0.02); margin-bottom:10px; cursor:pointer; font-size:0.95rem; color: var(--text); transition: all 0.12s ease; }
+  .option-btn:hover { border-color: var(--blue); }
+  .option-btn.selected { border-color: var(--blue); background: rgba(59,130,246,0.12); font-weight:600; box-shadow: var(--glow-blue); }
+  .opt-letter { display:inline-flex; width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.08); align-items:center; justify-content:center; font-size:0.78rem; font-weight:700; margin-right:10px; }
+  .option-btn.selected .opt-letter { background: var(--blue); color:#fff; }
+  .quiz-nav { display:flex; justify-content:space-between; margin-top:20px; gap:10px; flex-wrap:wrap; }
+
+  .qr-result { text-align:center; padding: 10px 0; } .qr-big { font-family: var(--font-head); font-size: 3rem; font-weight:700; }
+  .opt-row { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; font-size:0.88rem; margin-bottom:4px; }
+  .opt-row.correct { background: rgba(34,197,94,0.15); color:#4ADE80; font-weight:600; }
+  .opt-row.wrong { background: rgba(239,68,68,0.15); color:#F87171; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="practice-template">
+  <div id="panel-setup">
+    <div id="category-view">
+      <h3 class="mb-8">Choose a category</h3><p class="text-muted">Pick a topic, difficulty and question count.</p>
+      <div class="category-grid" id="category-grid"><div class="loading-block" style="grid-column:1/-1;"><span class="spinner"></span> Loading…</div></div>
+    </div>
+    <div id="options-view" class="card hidden mt-24" style="max-width:520px;">
+      <button class="btn btn-ghost btn-sm mb-16" id="back-btn"><i class="fa-solid fa-arrow-left"></i> Change category</button>
+      <h3 id="selected-cat-title" style="margin-bottom:20px;"></h3>
+      <div class="field"><label>Difficulty</label><div class="radio-cards" id="difficulty-options">
+        <div class="radio-card selected" data-value="Easy">Easy</div><div class="radio-card" data-value="Medium">Medium</div><div class="radio-card" data-value="Hard">Hard</div>
+      </div></div>
+      <div class="field"><label>Number of Questions</label><div class="radio-cards" id="count-options">
+        <div class="radio-card selected" data-value="10">10</div><div class="radio-card" data-value="20">20</div><div class="radio-card" data-value="30">30</div>
+      </div></div>
+      <button class="btn btn-primary btn-lg btn-block mt-16" id="start-quiz-btn">Start Quiz</button>
+    </div>
+  </div>
+
+  <div id="panel-quiz" class="quiz-stage hidden">
+    <div class="flex-between mb-8"><span class="text-muted" style="font-size:0.85rem;font-weight:600;" id="q-counter">Question 1/10</span><span class="timer-pill" id="q-timer"><i class="fa-regular fa-clock"></i> 00:00</span></div>
+    <div class="progress-track mb-24"><div class="progress-fill" id="q-progress" style="width:0%;"></div></div>
+    <div class="card mb-20"><h3 id="q-text" style="margin-bottom:22px;"></h3><div id="q-options"></div></div>
+    <div class="quiz-nav"><button class="btn btn-secondary" id="prev-btn"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+      <div class="flex gap-10"><button class="btn btn-primary hidden" id="next-btn">Next <i class="fa-solid fa-arrow-right"></i></button><button class="btn btn-primary hidden" id="submit-quiz-btn">Submit Quiz</button></div></div>
+  </div>
+
+  <div id="panel-result" class="quiz-stage hidden">
+    <div class="card qr-result">
+      <div class="flex-center" id="result-robot-slot" style="margin-bottom:10px;"></div>
+      <p class="text-muted" style="margin:0;">Your Result</p><div class="qr-big"><span id="qr-correct">0</span> / <span id="qr-total">0</span></div><p class="text-muted"><span id="qr-percent">0</span>%</p><p style="font-weight:700;" id="qr-label"></p>
+      <p class="text-muted" id="qr-ai-message" style="font-size:0.85rem;"></p>
+    </div>
+    <h3 class="mt-24 mb-16">Question Review</h3>
+    <div id="qr-review"></div>
+    <div class="flex gap-12 mt-24"><a href="practice.html" class="btn btn-primary btn-lg" onclick="location.reload();return true;">Practice Again</a><a href="dashboard.html" class="btn btn-secondary btn-lg">Back to Dashboard</a></div>
+  </div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/practice.js"></script>
+</body>
+</html>

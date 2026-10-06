@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interview Result — Smart AI Interview Assistance</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  .result-hero { text-align:center; padding: 20px 0; }
+  .score-ring { width:170px;height:170px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin: 0 auto 18px; background: conic-gradient(var(--blue) calc(var(--pct) * 1%), rgba(255,255,255,0.08) 0); }
+  .score-ring .inner { width:140px;height:140px;border-radius:50%;background:var(--bg-soft);display:flex;flex-direction:column;align-items:center;justify-content:center; }
+  .score-ring .inner strong { font-family: var(--font-head); font-size:2.4rem; }
+  .qr-item { padding:18px 20px; margin-bottom:12px; }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="app-shell" id="app-shell-root"></div>
+
+<template id="result-template">
+  <div id="result-loading" class="loading-block"><span class="spinner"></span> Loading your results…</div>
+  <div id="result-body" class="hidden">
+    <div id="demo-banner-wrap"></div>
+    <div class="card result-hero">
+      <div class="flex-center" id="result-hero-robot-slot" style="margin-bottom:10px;"></div>
+      <div class="score-ring" id="score-ring" style="--pct:0;"><div class="inner"><strong id="overall-score">0</strong><span class="text-muted" style="font-size:0.75rem;">OVERALL</span></div></div>
+      <p class="text-muted" id="result-meta"></p>
+    </div>
+
+    <div class="stat-grid mb-24 mt-24">
+      <div class="card stat-card"><div class="stat-label">Technical Knowledge</div><div class="stat-value" id="score-technical">0%</div></div>
+      <div class="card stat-card"><div class="stat-label">Communication</div><div class="stat-value" id="score-communication">0%</div></div>
+      <div class="card stat-card"><div class="stat-label">Problem Solving</div><div class="stat-value" id="score-problem-solving">0%</div></div>
+    </div>
+
+    <div class="grid-2 mb-24">
+      <div class="card"><h4><i class="fa-solid fa-star" style="color:#4ADE80;"></i> Strengths</h4><ul id="strengths-list"></ul></div>
+      <div class="card"><h4><i class="fa-solid fa-triangle-exclamation" style="color:#FBBF24;"></i> Areas to Improve</h4><ul id="improvements-list"></ul></div>
+    </div>
+    <div class="card mb-24"><h4><i class="fa-solid fa-lightbulb" style="color:#60A5FA;"></i> Recommended Practice</h4><ul id="recommended-list"></ul></div>
+
+    <h3 class="mb-16">Question Review</h3>
+    <div id="question-review-wrap"></div>
+
+    <div class="flex gap-12 mt-24">
+      <a href="mock-interview.html" class="btn btn-primary btn-lg">Retry Interview</a>
+      <a href="dashboard.html" class="btn btn-secondary btn-lg">Back to Dashboard</a>
+    </div>
+  </div>
+</template>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/result.js"></script>
+</body>
+</html>
