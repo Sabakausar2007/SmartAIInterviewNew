@@ -109,8 +109,9 @@ def performance_trends(db: Session = Depends(get_db), current_user: models.User 
         "avg_technical": safe_avg(technical_scores), "avg_communication": safe_avg(communication_scores),
         "avg_problem_solving": safe_avg(problem_solving_scores),
         "topic_averages": topic_averages,
-        "strongest_topics": [t[0] for t in sorted_topics[:3]],
-        "weakest_topics": [t[0] for t in sorted_topics[-3:]] if sorted_topics else [],
+        # Strong = average >= 70, weak = average < 70, so one topic is never in both lists.
+        "strongest_topics": [t[0] for t in sorted_topics if t[1] >= 70][:3],
+        "weakest_topics": [t[0] for t in reversed(sorted_topics) if t[1] < 70][:3],
     }
 
 

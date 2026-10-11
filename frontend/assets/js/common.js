@@ -50,8 +50,30 @@ async function requireAuth() {
     const user = await API.me();
     AuthStore.setStoredUser(user);
     return user;
-  } catch (e) { window.location.href = "login.html"; return null; }
+  } catch (e) {
+    // Only a real 401 means "not logged in". A temporary server/network problem must
+    // not log the user out - show a recoverable error instead.
+    if (e && e.status === 401) { window.location.href = "login.html"; return null; }
+    showFatalLoadError(e instanceof ApiError ? e.message : "Something went wrong while loading this page.");
+    return null;
+  }
 }
+
+function showFatalLoadError(message) {
+  document.body.insertAdjacentHTML("beforeend", `
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:fixed;inset:0;z-index:300;background:var(--bg);">
+      <div class="card" style="max-width:440px;text-align:center;">
+        <i class="fa-solid fa-triangle-exclamation" style="font-size:2rem;color:#FBBF24;margin-bottom:12px;"></i>
+        <h3>We couldn't load this page</h3>
+        <p>${escapeHtml(message)}</p>
+        <div class="flex gap-12" style="justify-content:center;">
+          <button class="btn btn-primary" onclick="window.location.reload()">Try again</button>
+          <a href="login.html" class="btn btn-secondary">Go to login</a>
+        </div>
+      </div>
+    </div>`);
+}
+window.showFatalLoadError = showFatalLoadError;
 async function requireAdmin() {
   const user = await requireAuth();
   if (user && !user.is_admin) { showToast("Admin access required.", "error"); window.location.href = "dashboard.html"; return null; }

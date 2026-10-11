@@ -20,15 +20,28 @@
 
 <template id="result-template">
   <div id="result-loading" class="loading-block"><span class="spinner"></span> Loading your results…</div>
+  <div id="result-state" class="card empty-state hidden" style="max-width:560px;margin:40px auto;">
+    <i id="result-state-icon" class="fa-solid fa-circle-info"></i>
+    <h3 id="result-state-title"></h3>
+    <p id="result-state-text" style="margin:0 auto 18px;"></p>
+    <div class="flex gap-12" style="justify-content:center;flex-wrap:wrap;" id="result-state-actions"></div>
+  </div>
   <div id="result-body" class="hidden">
     <div id="demo-banner-wrap"></div>
     <div class="card result-hero">
       <div class="flex-center" id="result-hero-robot-slot" style="margin-bottom:10px;"></div>
       <div class="score-ring" id="score-ring" style="--pct:0;"><div class="inner"><strong id="overall-score">0</strong><span class="text-muted" style="font-size:0.75rem;">OVERALL</span></div></div>
+      <p style="font-weight:700;margin:0 0 4px;" id="result-label"></p>
       <p class="text-muted" id="result-meta"></p>
     </div>
 
     <div class="stat-grid mb-24 mt-24">
+      <div class="card stat-card"><div class="stat-label">Questions Answered</div><div class="stat-value" id="count-answered">0</div></div>
+      <div class="card stat-card"><div class="stat-label">Skipped</div><div class="stat-value" id="count-skipped">0</div></div>
+      <div class="card stat-card"><div class="stat-label">Total Questions</div><div class="stat-value" id="count-total">0</div></div>
+    </div>
+
+    <div class="stat-grid mb-24">
       <div class="card stat-card"><div class="stat-label">Technical Knowledge</div><div class="stat-value" id="score-technical">0%</div></div>
       <div class="card stat-card"><div class="stat-label">Communication</div><div class="stat-value" id="score-communication">0%</div></div>
       <div class="card stat-card"><div class="stat-label">Problem Solving</div><div class="stat-value" id="score-problem-solving">0%</div></div>

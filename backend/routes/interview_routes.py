@@ -71,19 +71,27 @@ def submit_answer(data: schemas.SubmitAnswerRequest, current_user: models.User =
     ).first()
     if not interview:
         raise HTTPException(status_code=404, detail="Interview not found.")
+    if interview.status == "completed":
+        raise HTTPException(status_code=400, detail="This interview is already completed.")
 
     evaluation, is_demo = ai_service.evaluate_answer(
         question=question.question_text, answer=data.answer_text or "",
         job_role=interview.job_role, skipped=data.skipped,
     )
 
-    answer = models.InterviewAnswer(
-        question_id=question.id, answer_text=data.answer_text, was_skipped=data.skipped,
-        score=evaluation["score"], technical_score=evaluation["technical_score"],
-        communication_score=evaluation["communication_score"], problem_solving_score=evaluation["problem_solving_score"],
-        feedback=evaluation["feedback"],
-    )
-    db.add(answer)
+    # Upsert: re-answering the same question (e.g. after a page refresh) must
+    # replace the earlier answer, never add a second row that skews the averages.
+    answer = db.query(models.InterviewAnswer).filter(models.InterviewAnswer.question_id == question.id).first()
+    if answer is None:
+        answer = models.InterviewAnswer(question_id=question.id)
+        db.add(answer)
+    answer.answer_text = data.answer_text
+    answer.was_skipped = data.skipped
+    answer.score = evaluation["score"]
+    answer.technical_score = evaluation["technical_score"]
+    answer.communication_score = evaluation["communication_score"]
+    answer.problem_solving_score = evaluation["problem_solving_score"]
+    answer.feedback = evaluation["feedback"]
     db.commit()
 
     return {**evaluation, "is_demo_evaluation": is_demo}
@@ -162,7 +170,14 @@ def get_interview_result(interview_id: int, current_user: models.User = Depends(
             "feedback": a.feedback if a else None,
         })
 
+    answered_count = sum(1 for r in review if r["answer"] and not r["skipped"])
+    skipped_count = sum(1 for r in review if r["skipped"])
+    overall = interview.overall_score or 0
+    performance_label = "Excellent" if overall >= 80 else "Good" if overall >= 50 else "Needs Improvement"
+
     return {
+        "answered_count": answered_count, "skipped_count": skipped_count,
+        "total_questions": interview.total_questions, "performance_label": performance_label,
         "id": interview.id, "mode": interview.mode, "job_role": interview.job_role,
         "experience_level": interview.experience_level, "interview_type": interview.interview_type,
         "status": interview.status, "overall_score": interview.overall_score,

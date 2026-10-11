@@ -13,33 +13,53 @@
 <div class="app-shell" id="app-shell-root"></div>
 
 <template id="performance-template">
+  <div id="new-user-banner" class="card mb-24 hidden" style="display:none;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div id="progress-robot-slot"></div>
+    <div style="flex:1;min-width:220px;">
+      <h3 style="margin-bottom:4px;">Complete your first interview to see your progress</h3>
+      <p class="text-muted" style="margin:0;">Your scores, trends and weak topics will appear here as soon as you finish a mock interview or quiz.</p>
+    </div>
+    <div class="flex gap-12"><a href="mock-interview.html" class="btn btn-primary">Start Mock Interview</a><a href="practice.html" class="btn btn-secondary">Practice MCQs</a></div>
+  </div>
+
   <div class="stat-grid mb-24">
     <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-comments"></i></div><div class="stat-label">Total Interviews</div><div class="stat-value" id="perf-interviews">—</div></div>
     <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-star"></i></div><div class="stat-label">Avg Interview Score</div><div class="stat-value" id="perf-avg-interview">—</div></div>
     <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-list-check"></i></div><div class="stat-label">Avg Quiz Score</div><div class="stat-value" id="perf-avg-quiz">—</div></div>
     <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-code"></i></div><div class="stat-label">Coding Solved</div><div class="stat-value" id="perf-coding">—</div></div>
+    <div class="card stat-card"><div class="stat-icon"><i class="fa-solid fa-fire"></i></div><div class="stat-label">Practice Streak</div><div class="stat-value" id="perf-streak">—</div></div>
   </div>
 
   <div class="grid-2 mb-24" style="grid-template-columns: 1.4fr 1fr;">
     <div class="card">
       <h3 class="mb-16">Score Trends</h3>
+      <div id="trend-loading" class="loading-block" style="padding:30px 0;"><span class="spinner"></span> Loading…</div>
       <div id="trend-empty" class="empty-state hidden" style="padding:30px 0;"><i class="fa-solid fa-chart-line"></i><p>Complete an interview or quiz to see trends.</p></div>
-      <canvas id="trend-chart" height="100"></canvas>
+      <div id="trend-error" class="error-state hidden"></div>
+      <div style="position:relative;max-width:100%;"><canvas id="trend-chart" height="100" class="hidden"></canvas></div>
     </div>
     <div class="card">
       <h3 class="mb-16">Technical / Communication / Problem Solving</h3>
+      <div id="dim-loading" class="loading-block" style="padding:30px 0;"><span class="spinner"></span> Loading…</div>
       <div id="dim-empty" class="empty-state hidden" style="padding:30px 0;"><i class="fa-solid fa-chart-simple"></i><p>No interview data yet.</p></div>
-      <canvas id="dim-chart" height="180"></canvas>
+      <div id="dim-error" class="error-state hidden"></div>
+      <div style="position:relative;max-width:100%;"><canvas id="dim-chart" height="180" class="hidden"></canvas></div>
     </div>
   </div>
 
-  <div class="grid-2">
-    <div class="card"><h3 class="mb-16"><i class="fa-solid fa-arrow-trend-up" style="color:#4ADE80;"></i> Strongest Topics</h3><div id="strongest-wrap"></div></div>
-    <div class="card"><h3 class="mb-16"><i class="fa-solid fa-arrow-trend-down" style="color:#FBBF24;"></i> Weakest Topics</h3><div id="weakest-wrap"></div></div>
+  <div class="grid-2 mb-24">
+    <div class="card"><h3 class="mb-16"><i class="fa-solid fa-arrow-trend-up" style="color:#4ADE80;"></i> Strongest Topics</h3><div id="strongest-wrap"><div class="loading-block" style="padding:20px 0;"><span class="spinner"></span></div></div></div>
+    <div class="card"><h3 class="mb-16"><i class="fa-solid fa-arrow-trend-down" style="color:#FBBF24;"></i> Weakest Topics</h3><div id="weakest-wrap"><div class="loading-block" style="padding:20px 0;"><span class="spinner"></span></div></div></div>
+  </div>
+
+  <div class="card">
+    <h3 class="mb-8"><i class="fa-solid fa-lightbulb" style="color:#60A5FA;"></i> Recommended Practice</h3>
+    <p class="text-muted" style="font-size:0.85rem;">Generated from your actual activity.</p>
+    <ul id="perf-recommendations" style="margin:0;"><li class="text-muted">Loading…</li></ul>
   </div>
 </template>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.3/chart.umd.min.js"></script>
+<script src="assets/js/vendor/chart.umd.min.js"></script>
 <script src="assets/js/api.js"></script>
 <script src="assets/js/common.js"></script>
 <script src="assets/js/performance.js"></script>

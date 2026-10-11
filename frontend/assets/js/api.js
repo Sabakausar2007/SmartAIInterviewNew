@@ -13,6 +13,21 @@ class ApiError extends Error {
   constructor(message, status) { super(message); this.status = status; }
 }
 
+/* Render's free tier sleeps when idle; the first requests after a sleep can fail
+   at the proxy (502/503/504) or not connect at all while the app wakes up.
+   Read-only (GET) requests are therefore retried a few times with a growing
+   delay instead of being reported as a failure. Writes are never auto-retried,
+   so nothing can be submitted twice. */
+const RETRY_DELAYS_MS = [1500, 3000, 5000, 8000, 10000, 12000];
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+let wakeNoticeShown = false;
+
+function notifyServerWaking() {
+  if (wakeNoticeShown) return;
+  wakeNoticeShown = true;
+  if (typeof showToast === "function") showToast("The server is waking up - this can take up to a minute. Please wait…", "info", 9000);
+}
+
 async function apiRequest(method, path, body, { isForm = false, auth = true } = {}) {
   const headers = {};
   if (!isForm) headers["Content-Type"] = "application/json";
@@ -20,12 +35,29 @@ async function apiRequest(method, path, body, { isForm = false, auth = true } = 
     const token = getToken();
     if (token) headers["Authorization"] = `Bearer ${token}`;
   }
-  let response;
-  try {
-    response = await fetch(`${API_BASE}${path}`, { method, headers, body: body ? (isForm ? body : JSON.stringify(body)) : undefined });
-  } catch (e) {
-    throw new ApiError("Can't reach the server. Make sure the backend is running (run.bat) and try again.", 0);
+
+  const canRetry = method === "GET";
+  let response = null;
+  let networkFailed = false;
+
+  for (let attempt = 0; ; attempt++) {
+    networkFailed = false;
+    try {
+      response = await fetch(`${API_BASE}${path}`, { method, headers, body: body ? (isForm ? body : JSON.stringify(body)) : undefined });
+    } catch (e) {
+      networkFailed = true;
+      response = null;
+    }
+    const transient = networkFailed || (response && [502, 503, 504].includes(response.status));
+    if (!transient || !canRetry || attempt >= RETRY_DELAYS_MS.length) break;
+    notifyServerWaking();
+    await sleep(RETRY_DELAYS_MS[attempt]);
   }
+
+  if (networkFailed || !response) {
+    throw new ApiError("Can't reach the server. Check your connection (or wait a moment if the server is waking up) and try again.", 0);
+  }
+
   let data = null;
   const text = await response.text();
   if (text) { try { data = JSON.parse(text); } catch (e) { data = null; } }
